@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;" />
-    <title>LensDock 设置</title>
+        content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; media-src blob: mediastream:" />
+    <title>LensDock</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -13,68 +13,147 @@
 </head>
 
 <body>
-    <!-- Titlebar drag region -->
-    <div id="titlebar">
-        <span class="titlebar-text">LensDock 设置</span>
-    </div>
+    <!-- ===== Sidebar ===== -->
+    <aside id="sidebar">
+        <div id="sidebar-top">
+            <!-- Titlebar drag area -->
+            <div id="sidebar-drag-area"></div>
 
-    <div id="settings-content">
-        <!-- Shape Section -->
-        <section class="settings-section">
-            <h3 class="section-title">形状</h3>
-            <div id="shape-options" class="option-group">
-                <button class="shape-option active" data-shape="circle">
-                    <div class="shape-preview circle-preview"></div>
-                    <span>圆形</span>
-                </button>
-                <button class="shape-option" data-shape="rounded">
-                    <div class="shape-preview rounded-preview"></div>
-                    <span>圆角</span>
-                </button>
-                <button class="shape-option" data-shape="square">
-                    <div class="shape-preview square-preview"></div>
-                    <span>方形</span>
-                </button>
+            <!-- App branding -->
+            <div id="app-brand">
+                <div id="app-icon">🎥</div>
+                <span id="app-name">LensDock</span>
             </div>
-        </section>
 
-        <!-- Size Section -->
-        <section class="settings-section">
-            <h3 class="section-title">大小</h3>
-            <div class="slider-row">
-                <input type="range" id="size-slider" min="80" max="500" value="200" />
-                <span id="size-label" class="slider-value">200px</span>
+            <!-- Navigation -->
+            <nav id="nav">
+                <button class="nav-item active" data-page="home">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg>
+                    <span>首页</span>
+                </button>
+                <button class="nav-item" data-page="settings">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3" />
+                        <path
+                            d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
+                    </svg>
+                    <span>设置</span>
+                </button>
+            </nav>
+        </div>
+    </aside>
+
+    <!-- ===== Main Content ===== -->
+    <main id="main-content">
+        <!-- Titlebar drag area for main -->
+        <div id="main-drag-area"></div>
+
+        <!-- ===== Home Page ===== -->
+        <div id="page-home" class="page active">
+            <div class="page-header">
+                <h1 class="page-title">摄像头预览</h1>
+                <p class="page-desc">实时预览当前摄像头画面效果</p>
             </div>
-        </section>
 
-        <!-- Mirror Section -->
-        <section class="settings-section">
-            <div class="toggle-row">
-                <div class="toggle-info">
-                    <h3 class="section-title inline">镜像画面</h3>
-                    <p class="toggle-desc">水平翻转摄像头画面（自拍视角）</p>
+            <div id="preview-area">
+                <div id="preview-container" class="shape-circle">
+                    <video id="preview-video" autoplay muted playsinline></video>
                 </div>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="mirror-toggle" checked />
-                    <span class="toggle-slider"></span>
-                </label>
-            </div>
-        </section>
 
-        <!-- Border Section -->
-        <section class="settings-section">
-            <div class="toggle-row">
-                <div class="toggle-info">
-                    <h3 class="section-title inline">显示边框</h3>
-                    <p class="toggle-desc">在摄像头画面周围显示细边框</p>
+                <div id="preview-info">
+                    <div id="preview-status">
+                        <span id="status-dot"></span>
+                        <span>摄像头已连接</span>
+                    </div>
+                    <div id="preview-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">形状</span>
+                            <span id="meta-shape" class="meta-value">圆形</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">大小</span>
+                            <span id="meta-size" class="meta-value">200px</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">镜像</span>
+                            <span id="meta-mirror" class="meta-value">开启</span>
+                        </div>
+                    </div>
                 </div>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="border-toggle" checked />
-                    <span class="toggle-slider"></span>
-                </label>
             </div>
-        </section>
-    </div>
+        </div>
+
+        <!-- ===== Settings Page ===== -->
+        <div id="page-settings" class="page">
+            <div class="page-header">
+                <h1 class="page-title">设置</h1>
+                <p class="page-desc">自定义摄像头浮窗的外观和行为</p>
+            </div>
+
+            <div id="settings-sections">
+                <!-- Shape Section -->
+                <section class="settings-section">
+                    <h3 class="section-title">形状</h3>
+                    <div id="shape-options" class="option-group">
+                        <button class="shape-option active" data-shape="circle">
+                            <div class="shape-preview circle-preview"></div>
+                            <span>圆形</span>
+                        </button>
+                        <button class="shape-option" data-shape="rounded">
+                            <div class="shape-preview rounded-preview"></div>
+                            <span>圆角</span>
+                        </button>
+                        <button class="shape-option" data-shape="square">
+                            <div class="shape-preview square-preview"></div>
+                            <span>方形</span>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Size Section -->
+                <section class="settings-section">
+                    <h3 class="section-title">大小</h3>
+                    <div class="slider-row">
+                        <input type="range" id="size-slider" min="80" max="500" value="200" />
+                        <span id="size-label" class="slider-value">200px</span>
+                    </div>
+                </section>
+
+                <!-- Mirror Section -->
+                <section class="settings-section">
+                    <div class="toggle-row">
+                        <div class="toggle-info">
+                            <h3 class="section-title inline">镜像画面</h3>
+                            <p class="toggle-desc">水平翻转摄像头画面（自拍视角）</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="mirror-toggle" checked />
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </section>
+
+                <!-- Border Section -->
+                <section class="settings-section">
+                    <div class="toggle-row">
+                        <div class="toggle-info">
+                            <h3 class="section-title inline">显示边框</h3>
+                            <p class="toggle-desc">在摄像头画面周围显示细边框</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="border-toggle" checked />
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
 
     <script src="./settings.js"></script>
 </body>

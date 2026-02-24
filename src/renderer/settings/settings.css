@@ -1,5 +1,6 @@
 /* ============================================
    LensDock — Settings Window Styles
+   Sidebar layout with page navigation
    ============================================ */
 
 * {
@@ -10,49 +11,285 @@
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
-    background: #1a1a2e;
+    background: #111119;
     color: #e0e0f0;
     user-select: none;
     overflow: hidden;
+    display: flex;
+    height: 100vh;
 }
 
-/* ---- Titlebar ---- */
-#titlebar {
-    height: 52px;
+/* ===========================
+   Sidebar
+   =========================== */
+#sidebar {
+    width: 200px;
+    min-width: 200px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.03);
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#sidebar-top {
+    display: flex;
+    flex-direction: column;
+}
+
+#sidebar-drag-area {
+    height: 38px;
+    -webkit-app-region: drag;
+}
+
+/* ---- App Brand ---- */
+#app-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 18px 20px;
+}
+
+#app-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #6366f1, #818cf8);
     display: flex;
     align-items: center;
     justify-content: center;
-    -webkit-app-region: drag;
+    font-size: 18px;
+}
+
+#app-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.2px;
+}
+
+/* ---- Navigation ---- */
+#nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 0 10px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.18s ease;
+    text-align: left;
+    width: 100%;
+}
+
+.nav-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.nav-item.active {
+    background: rgba(99, 102, 241, 0.15);
+    color: #818cf8;
+}
+
+.nav-item svg {
+    flex-shrink: 0;
+}
+
+/* ===========================
+   Main Content
+   =========================== */
+#main-content {
+    flex: 1;
+    overflow-y: auto;
     position: relative;
 }
 
-.titlebar-text {
-    font-size: 13px;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.7);
-    letter-spacing: 0.3px;
+#main-drag-area {
+    height: 38px;
+    -webkit-app-region: drag;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
-/* ---- Content ---- */
-#settings-content {
-    padding: 0 28px 28px;
+/* ---- Pages ---- */
+.page {
+    display: none;
+    padding: 0 32px 32px;
+    animation: fadeIn 0.25s ease;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.page-header {
+    margin-bottom: 28px;
+}
+
+.page-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+}
+
+.page-desc {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.35);
+}
+
+/* ===========================
+   Home Page — Camera Preview
+   =========================== */
+#preview-area {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+#preview-container {
+    width: 240px;
+    height: 240px;
+    flex-shrink: 0;
+    overflow: hidden;
+    transition: border-radius 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid rgba(255, 255, 255, 0.12);
+    background: #0a0a14;
+}
+
+#preview-container.shape-circle {
+    border-radius: 50%;
+}
+
+#preview-container.shape-rounded {
+    border-radius: 20%;
+}
+
+#preview-container.shape-square {
+    border-radius: 0;
+}
+
+#preview-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scaleX(-1);
+    background: #0a0a14;
+}
+
+/* ---- Preview Info ---- */
+#preview-info {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
 }
 
-/* ---- Sections ---- */
+#preview-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+#status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #34d399;
+    box-shadow: 0 0 8px rgba(52, 211, 153, 0.5);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+#preview-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.meta-label {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.meta-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: #818cf8;
+}
+
+/* ===========================
+   Settings Page
+   =========================== */
+#settings-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
 .settings-section {
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.04);
     border-radius: 14px;
     padding: 18px 20px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .section-title {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.4);
     text-transform: uppercase;
     letter-spacing: 0.8px;
     margin-bottom: 14px;
@@ -60,6 +297,10 @@ body {
 
 .section-title.inline {
     margin-bottom: 2px;
+    font-size: 14px;
+    text-transform: none;
+    letter-spacing: 0;
+    color: rgba(255, 255, 255, 0.85);
 }
 
 /* ---- Shape Options ---- */
@@ -77,8 +318,8 @@ body {
     padding: 16px 12px;
     border: 2px solid transparent;
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.04);
-    color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.03);
+    color: rgba(255, 255, 255, 0.5);
     cursor: pointer;
     transition: all 0.2s ease;
     font-family: inherit;
@@ -87,13 +328,13 @@ body {
 }
 
 .shape-option:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.06);
     color: #fff;
 }
 
 .shape-option.active {
     border-color: #818cf8;
-    background: rgba(129, 140, 248, 0.12);
+    background: rgba(129, 140, 248, 0.1);
     color: #fff;
 }
 
@@ -128,7 +369,7 @@ body {
     flex: 1;
     height: 6px;
     border-radius: 3px;
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.1);
     outline: none;
     cursor: pointer;
 }
@@ -172,8 +413,8 @@ body {
 
 .toggle-desc {
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.35);
-    margin-top: 2px;
+    color: rgba(255, 255, 255, 0.3);
+    margin-top: 3px;
 }
 
 .toggle-switch {
@@ -192,11 +433,8 @@ body {
 .toggle-slider {
     position: absolute;
     cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(255, 255, 255, 0.15);
+    inset: 0;
+    background: rgba(255, 255, 255, 0.12);
     border-radius: 24px;
     transition: background 0.25s ease;
 }
@@ -220,4 +458,18 @@ body {
 
 .toggle-switch input:checked+.toggle-slider::before {
     transform: translateX(20px);
+}
+
+/* ---- Scrollbar ---- */
+#main-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+#main-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#main-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 3px;
 }

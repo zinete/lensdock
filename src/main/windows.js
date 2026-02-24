@@ -55,11 +55,13 @@ function createSettingsWindow() {
     }
 
     settingsWindow = new BrowserWindow({
-        width: 420,
-        height: 520,
-        resizable: false,
+        width: 780,
+        height: 560,
+        minWidth: 680,
+        minHeight: 480,
+        resizable: true,
         maximizable: false,
-        minimizable: false,
+        minimizable: true,
         fullscreenable: false,
         titleBarStyle: 'hiddenInset',
         vibrancy: 'sidebar',
