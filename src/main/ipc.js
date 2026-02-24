@@ -37,6 +37,8 @@ function setupIPC() {
 
     ipcMain.on('update-settings', (_event, newSettings) => {
         const oldSize = getSettings().size
+        const oldVisible = getSettings().cameraVisible
+
         updateSettings(newSettings)
         const current = getSettings()
 
@@ -45,6 +47,15 @@ function setupIPC() {
             if (current.size !== oldSize) {
                 win.setSize(current.size, current.size)
             }
+
+            if (current.cameraVisible !== oldVisible) {
+                if (current.cameraVisible) {
+                    win.showInactive()
+                } else {
+                    win.hide()
+                }
+            }
+
             win.webContents.send('settings-changed', current)
         }
     })

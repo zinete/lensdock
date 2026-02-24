@@ -24,7 +24,26 @@ function createTray() {
         })
         // Right click → quick menu
         const contextMenu = Menu.buildFromTemplate([
-            { label: 'LensDock', enabled: false },
+            { type: 'separator' },
+            {
+                label: '显示浮窗',
+                type: 'checkbox',
+                checked: settings.cameraVisible,
+                click: (menuItem) => {
+                    settings.cameraVisible = menuItem.checked
+                    const cam = getCameraWindow()
+                    if (cam) {
+                        if (settings.cameraVisible) {
+                            cam.showInactive()
+                        } else {
+                            cam.hide()
+                        }
+                        cam.webContents.send('settings-changed', { ...settings })
+                    }
+                    const stg = getSettingsWindow()
+                    if (stg) stg.webContents.send('settings-changed', { ...settings })
+                },
+            },
             {
                 label: '镜像画面',
                 type: 'checkbox',

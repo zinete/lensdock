@@ -8,6 +8,7 @@ const settings = {
     size: 200,
     mirrored: true,
     borderEnabled: true,
+    cameraVisible: true,
 }
 
 function getSettings() {

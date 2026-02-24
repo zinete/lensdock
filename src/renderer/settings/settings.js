@@ -11,6 +11,7 @@ const pages = document.querySelectorAll('.page')
 const shapeOptions = document.querySelectorAll('.shape-option')
 const sizeSlider = document.getElementById('size-slider')
 const sizeLabel = document.getElementById('size-label')
+const visibilityToggle = document.getElementById('visibility-toggle')
 const mirrorToggle = document.getElementById('mirror-toggle')
 const borderToggle = document.getElementById('border-toggle')
 
@@ -27,6 +28,7 @@ let currentSettings = {
     size: 200,
     mirrored: true,
     borderEnabled: true,
+    cameraVisible: true,
 }
 
 const SHAPE_LABELS = { circle: '圆形', rounded: '圆角', square: '方形' }
@@ -86,6 +88,18 @@ sizeSlider.addEventListener('input', (e) => {
     pushSettings()
 })
 
+// ---- Visibility ----
+visibilityToggle.addEventListener('change', () => {
+    currentSettings.cameraVisible = visibilityToggle.checked
+    pushSettings()
+})
+
+// ---- Visibility ----
+visibilityToggle.addEventListener('change', () => {
+    currentSettings.cameraVisible = visibilityToggle.checked
+    pushSettings()
+})
+
 // ---- Mirror ----
 mirrorToggle.addEventListener('change', () => {
     currentSettings.mirrored = mirrorToggle.checked
@@ -116,6 +130,7 @@ function applyToUI(s) {
     })
     sizeSlider.value = s.size
     sizeLabel.textContent = `${s.size}px`
+    visibilityToggle.checked = s.cameraVisible
     mirrorToggle.checked = s.mirrored
     borderToggle.checked = s.borderEnabled
 
