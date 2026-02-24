@@ -1,0 +1,15 @@
+{
+  "name": "lensdock",
+  "version": "1.0.0",
+  "description": "A floating camera dock for creators.",
+  "main": "src/main/index.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "zhenghui",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^40.6.0"
+  }
+}

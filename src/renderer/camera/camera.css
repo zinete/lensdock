@@ -1,0 +1,65 @@
+/* ============================================
+   LensDock — Camera Overlay Styles
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: transparent;
+    user-select: none;
+}
+
+/* ---- Camera Container ---- */
+#camera-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transition: border-radius 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+#camera-container.shape-circle {
+    border-radius: 50%;
+}
+
+#camera-container.shape-rounded {
+    border-radius: 20%;
+}
+
+#camera-container.shape-square {
+    border-radius: 0;
+}
+
+/* ---- Video ---- */
+#camera-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scaleX(-1);
+    background: #0a0a0a;
+}
+
+/* ---- Drag Handle ---- */
+#drag-handle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    cursor: grab;
+}
+
+#drag-handle:active {
+    cursor: grabbing;
+}

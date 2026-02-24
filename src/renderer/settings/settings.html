@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;" />
+    <title>LensDock 设置</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./settings.css" />
+</head>
+
+<body>
+    <!-- Titlebar drag region -->
+    <div id="titlebar">
+        <span class="titlebar-text">LensDock 设置</span>
+    </div>
+
+    <div id="settings-content">
+        <!-- Shape Section -->
+        <section class="settings-section">
+            <h3 class="section-title">形状</h3>
+            <div id="shape-options" class="option-group">
+                <button class="shape-option active" data-shape="circle">
+                    <div class="shape-preview circle-preview"></div>
+                    <span>圆形</span>
+                </button>
+                <button class="shape-option" data-shape="rounded">
+                    <div class="shape-preview rounded-preview"></div>
+                    <span>圆角</span>
+                </button>
+                <button class="shape-option" data-shape="square">
+                    <div class="shape-preview square-preview"></div>
+                    <span>方形</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Size Section -->
+        <section class="settings-section">
+            <h3 class="section-title">大小</h3>
+            <div class="slider-row">
+                <input type="range" id="size-slider" min="80" max="500" value="200" />
+                <span id="size-label" class="slider-value">200px</span>
+            </div>
+        </section>
+
+        <!-- Mirror Section -->
+        <section class="settings-section">
+            <div class="toggle-row">
+                <div class="toggle-info">
+                    <h3 class="section-title inline">镜像画面</h3>
+                    <p class="toggle-desc">水平翻转摄像头画面（自拍视角）</p>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="mirror-toggle" checked />
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+        </section>
+
+        <!-- Border Section -->
+        <section class="settings-section">
+            <div class="toggle-row">
+                <div class="toggle-info">
+                    <h3 class="section-title inline">显示边框</h3>
+                    <p class="toggle-desc">在摄像头画面周围显示细边框</p>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="border-toggle" checked />
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+        </section>
+    </div>
+
+    <script src="./settings.js"></script>
+</body>
+
+</html>
