@@ -30,7 +30,10 @@
       ]
     }
   },
-  "author": "zhenghui",
+  "author": {
+    "name": "zhenghui",
+    "email": "zhenghui@zinete.com"
+  },
   "license": "MIT",
   "devDependencies": {
     "electron": "^40.6.0",
