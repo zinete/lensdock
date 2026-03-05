@@ -15,7 +15,9 @@
       "output": "dist"
     },
     "mac": {
-      "category": "public.app-category.utilities"
+      "category": "public.app-category.utilities",
+      "target": "dmg",
+      "executableName": "LensDock"
     },
     "win": {
       "target": [
@@ -28,7 +30,11 @@
         "AppImage",
         "deb"
       ]
-    }
+    },
+    "files": [
+      "src/**/*",
+      "package.json"
+    ]
   },
   "author": {
     "name": "zhenghui",
